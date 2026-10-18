@@ -35,8 +35,8 @@ export class RoomListComponent implements OnInit {
   readonly unavailableCount = computed(() => this.rooms().length - this.availableCount());
 
   readonly roomForm = this.formBuilder.nonNullable.group({
-    roomNumber: ['', [Validators.required, Validators.maxLength(20)]],
-    type: ['Deluxe', [Validators.required, Validators.maxLength(40)]],
+    roomNumber: ['', [Validators.required, Validators.pattern(/\S/), Validators.maxLength(20)]],
+    type: ['Deluxe', [Validators.required, Validators.pattern(/\S/), Validators.maxLength(40)]],
     pricePerNight: [120, [Validators.required, Validators.min(0.01)]],
     isAvailable: [true],
   });
@@ -69,8 +69,13 @@ export class RoomListComponent implements OnInit {
     this.saving.set(true);
     this.actionError.set(null);
     this.successMessage.set(null);
+    const roomFormValue = this.roomForm.getRawValue();
     this.api
-      .createRoom(this.roomForm.getRawValue())
+      .createRoom({
+        ...roomFormValue,
+        roomNumber: roomFormValue.roomNumber.trim(),
+        type: roomFormValue.type.trim(),
+      })
       .pipe(finalize(() => this.saving.set(false)))
       .subscribe({
         next: (room) => {
