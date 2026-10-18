@@ -15,11 +15,11 @@ export class ApiService {
   getRoom(id: number): Observable<Room> {
     return this.http.get<Room>(`${this.baseUrl}/rooms/${id}`);
   }
-  createRoom(room: Room): Observable<Room> {
+  createRoom(room: Omit<Room, 'id'>): Observable<Room> {
     return this.http.post<Room>(`${this.baseUrl}/rooms`, room);
   }
-  deleteRoom(id: number) {
-    return this.http.delete(`${this.baseUrl}/rooms/${id}`);
+  deleteRoom(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/rooms/${id}`);
   }
   getBookings(): Observable<Booking[]> {
     return this.http.get<Booking[]>(`${this.baseUrl}/bookings`);

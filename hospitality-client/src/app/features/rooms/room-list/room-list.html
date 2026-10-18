@@ -1,22 +1,203 @@
-<div style="padding:20px; max-width:900px; margin:auto; font-family:sans-serif">
-  <h2>Hospitality Hub - Rooms</h2>
-  
-  <div style="border:1px solid #ccc; padding:15px; border-radius:8px; margin-bottom:20px">
-    <h3>Add Room (Testing your API)</h3>
-    <input [(ngModel)]="newRoom.roomNumber" placeholder="Room No e.g. 101" />
-    <input [(ngModel)]="newRoom.type" placeholder="Type" />
-    <input type="number" [(ngModel)]="newRoom.pricePerNight" placeholder="Price" />
-    <button (click)="addRoom()">Add Room</button>
-  </div>
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Hospitality Hub home">
+      <span class="brand-mark" aria-hidden="true">H</span>
+      <span>Hospitality<span class="brand-light">Hub</span></span>
+    </a>
+    <span class="workspace-label">PROPERTY OPERATIONS</span>
+  </header>
 
-  <div *ngIf="loading">Loading from .NET API...</div>
+  <section class="page-intro" aria-labelledby="page-title">
+    <p class="eyebrow">YOUR PROPERTY AT A GLANCE</p>
+    <h1 id="page-title">Room <span>inventory</span></h1>
+    <p class="intro-copy">Manage your spaces and keep every stay running smoothly.</p>
+  </section>
 
-  <div *ngIf="!loading" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px">
-    <div *ngFor="let room of rooms" style="border:1px solid #ddd; padding:15px; border-radius:8px">
-      <h4>Room {{room.roomNumber}} - {{room.type}}</h4>
-      <p>Price: ${{room.pricePerNight}} / night</p>
-      <p>Status: <span [style.color]="room.isAvailable ? 'green' : 'red'">{{room.isAvailable ? 'Available' : 'Booked'}}</span></p>
-      <button (click)="deleteRoom(room.id)">Delete</button>
-    </div>
+  <section class="stats-grid" aria-label="Room summary">
+    <article class="stat-card">
+      <span class="stat-label">TOTAL ROOMS</span>
+      <strong>{{ rooms().length }}</strong>
+      <span class="stat-caption">in your inventory</span>
+    </article>
+    <article class="stat-card">
+      <span class="stat-label">AVAILABLE</span>
+      <strong>{{ availableCount() }}</strong>
+      <span class="stat-caption">ready for a new stay</span>
+    </article>
+    <article class="stat-card">
+      <span class="stat-label">UNAVAILABLE</span>
+      <strong>{{ unavailableCount() }}</strong>
+      <span class="stat-caption">not available to book</span>
+    </article>
+  </section>
+
+  <div class="content-grid">
+    <section class="panel add-panel" aria-labelledby="add-room-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">ROOM DETAILS</p>
+          <h2 id="add-room-title">Add a room</h2>
+        </div>
+        <span class="step-number" aria-hidden="true">01</span>
+      </div>
+      <p class="panel-description">Add a space to your property inventory.</p>
+
+      <form [formGroup]="roomForm" (ngSubmit)="addRoom()" novalidate>
+        <div class="field">
+          <label for="room-number">Room number</label>
+          <input
+            id="room-number"
+            type="text"
+            formControlName="roomNumber"
+            placeholder="e.g. 204"
+            autocomplete="off"
+            [attr.aria-invalid]="
+              roomForm.controls.roomNumber.invalid && roomForm.controls.roomNumber.touched
+            "
+            aria-describedby="room-number-hint room-number-error"
+          />
+          <span id="room-number-hint" class="field-hint"
+            >Use the number guests will recognize.</span
+          >
+          @if (roomForm.controls.roomNumber.invalid && roomForm.controls.roomNumber.touched) {
+            <span id="room-number-error" class="field-error"
+              >Enter a room number (up to 20 characters).</span
+            >
+          }
+        </div>
+
+        <div class="field">
+          <label for="room-type">Room type</label>
+          <input
+            id="room-type"
+            type="text"
+            formControlName="type"
+            placeholder="e.g. Deluxe"
+            [attr.aria-invalid]="roomForm.controls.type.invalid && roomForm.controls.type.touched"
+            aria-describedby="room-type-error"
+          />
+          @if (roomForm.controls.type.invalid && roomForm.controls.type.touched) {
+            <span id="room-type-error" class="field-error"
+              >Enter a room type (up to 40 characters).</span
+            >
+          }
+        </div>
+
+        <div class="field">
+          <label for="room-price">Price per night</label>
+          <div class="price-input">
+            <span aria-hidden="true">$</span>
+            <input
+              id="room-price"
+              type="number"
+              formControlName="pricePerNight"
+              min="0.01"
+              step="0.01"
+              placeholder="120.00"
+              [attr.aria-invalid]="
+                roomForm.controls.pricePerNight.invalid && roomForm.controls.pricePerNight.touched
+              "
+              aria-describedby="room-price-error"
+            />
+          </div>
+          @if (roomForm.controls.pricePerNight.invalid && roomForm.controls.pricePerNight.touched) {
+            <span id="room-price-error" class="field-error">Enter a price greater than $0.</span>
+          }
+        </div>
+
+        <label class="availability-toggle">
+          <input type="checkbox" formControlName="isAvailable" />
+          <span class="toggle-copy">
+            <strong>Available to book</strong>
+            <span>Guests can reserve this room</span>
+          </span>
+        </label>
+
+        @if (actionError(); as error) {
+          <p class="notice notice-error" role="alert">{{ error }}</p>
+        }
+        @if (successMessage(); as message) {
+          <p class="notice notice-success" role="status">{{ message }}</p>
+        }
+
+        <button class="primary-button" type="submit" [disabled]="saving()">
+          @if (saving()) {
+            Saving room...
+          } @else {
+            Add room
+          }
+        </button>
+      </form>
+    </section>
+
+    <section class="panel inventory-panel" aria-labelledby="inventory-title">
+      <div class="panel-heading inventory-heading">
+        <div>
+          <p class="eyebrow">THE PROPERTY</p>
+          <h2 id="inventory-title">Your rooms</h2>
+        </div>
+        @if (!loading() && !loadError()) {
+          <span class="room-count"
+            >{{ rooms().length }} {{ rooms().length === 1 ? 'ROOM' : 'ROOMS' }}</span
+          >
+        }
+      </div>
+
+      @if (loading()) {
+        <div class="loading-state" role="status">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Loading your rooms...</span>
+        </div>
+      } @else if (loadError(); as error) {
+        <div class="empty-state error-state" role="alert">
+          <span class="empty-icon" aria-hidden="true">!</span>
+          <h3>Rooms could not be loaded</h3>
+          <p>{{ error }}</p>
+          <button class="secondary-button" type="button" (click)="loadRooms()">Try again</button>
+        </div>
+      } @else if (rooms().length === 0) {
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">+</span>
+          <h3>Your rooms will appear here</h3>
+          <p>Start by adding the first room to your property.</p>
+        </div>
+      } @else {
+        @if (actionError(); as error) {
+          <p class="notice notice-error inventory-notice" role="alert">{{ error }}</p>
+        }
+        <div class="room-list">
+          @for (room of rooms(); track room.id) {
+            <article class="room-card">
+              <div class="room-avatar" aria-hidden="true">{{ room.roomNumber.slice(0, 1) }}</div>
+              <div class="room-details">
+                <h3>Room {{ room.roomNumber }}</h3>
+                <p>{{ room.type }}</p>
+              </div>
+              <div class="room-price">
+                <strong>{{ room.pricePerNight | currency: 'USD' : 'symbol' : '1.2-2' }}</strong>
+                <span>per night</span>
+              </div>
+              <span class="availability-badge" [class.is-available]="room.isAvailable">
+                <span class="status-dot" aria-hidden="true"></span>
+                {{ room.isAvailable ? 'Available' : 'Unavailable' }}
+              </span>
+              <button
+                class="delete-button"
+                type="button"
+                [disabled]="deletingRoomId() !== null"
+                [attr.aria-label]="'Remove room ' + room.roomNumber"
+                (click)="deleteRoom(room.id)"
+              >
+                @if (deletingRoomId() === room.id) {
+                  Removing...
+                } @else {
+                  Remove
+                }
+              </button>
+            </article>
+          }
+        </div>
+      }
+    </section>
   </div>
-</div>
+</main>

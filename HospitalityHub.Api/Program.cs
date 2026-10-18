@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // 1. Register services
 builder.Services.AddOpenApi();
+builder.Services.AddControllers();
 
 // 2. Configure Entity Framework Core and SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -42,6 +43,7 @@ app.UseHttpsRedirection();
 
 // 6. Apply CORS middleware
 app.UseCors("AllowAngular");
+app.MapControllers();
 
 // 7. Weather Forecast endpoint
 var summaries = new[]
