@@ -1,0 +1,22 @@
+<div style="padding:20px; max-width:900px; margin:auto; font-family:sans-serif">
+  <h2>Hospitality Hub - Rooms</h2>
+  
+  <div style="border:1px solid #ccc; padding:15px; border-radius:8px; margin-bottom:20px">
+    <h3>Add Room (Testing your API)</h3>
+    <input [(ngModel)]="newRoom.roomNumber" placeholder="Room No e.g. 101" />
+    <input [(ngModel)]="newRoom.type" placeholder="Type" />
+    <input type="number" [(ngModel)]="newRoom.pricePerNight" placeholder="Price" />
+    <button (click)="addRoom()">Add Room</button>
+  </div>
+
+  <div *ngIf="loading">Loading from .NET API...</div>
+
+  <div *ngIf="!loading" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px">
+    <div *ngFor="let room of rooms" style="border:1px solid #ddd; padding:15px; border-radius:8px">
+      <h4>Room {{room.roomNumber}} - {{room.type}}</h4>
+      <p>Price: ${{room.pricePerNight}} / night</p>
+      <p>Status: <span [style.color]="room.isAvailable ? 'green' : 'red'">{{room.isAvailable ? 'Available' : 'Booked'}}</span></p>
+      <button (click)="deleteRoom(room.id)">Delete</button>
+    </div>
+  </div>
+</div>

@@ -27,3 +27,7 @@ JSON
 If you use SSMS with SA login, use: Server=localhost;Database=HospitalityHubDB;User Id=sa;Password=YourPassword;TrustServerCertificate=True;
 
 # Create Entities | Data Context | Controllers | Update Program.cs | Implement Migrations
+
+## -------------------------------------------------------------------------------------------------##
+
+Day 2 - Angular Frontend with Rooms & Bookings - SQL Server	
