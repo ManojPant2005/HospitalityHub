@@ -283,6 +283,51 @@ h1 span {
   align-items: center;
   margin-bottom: 18px;
 }
+.room-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+.search-field {
+  display: flex;
+  min-width: min(100%, 300px);
+  height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  border: 1px solid #dfe4df;
+  border-radius: 8px;
+  background: #fff;
+  color: #74817a;
+}
+.search-field:focus-within {
+  border-color: #588575;
+  outline: 3px solid #d9e8e1;
+}
+.search-field > span {
+  font-size: 20px;
+  line-height: 1;
+}
+.search-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #20382f;
+  font: inherit;
+  font-size: 12px;
+}
+.search-field input:focus-visible {
+  outline: 0;
+}
+.search-caption {
+  color: #87918b;
+  font-size: 11px;
+  white-space: nowrap;
+}
 .room-count {
   padding: 7px 9px;
   border-radius: 20px;
@@ -293,6 +338,41 @@ h1 span {
 .room-list {
   display: grid;
   gap: 10px;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+}
+.page-button,
+.page-number {
+  min-width: 34px;
+  height: 34px;
+  border: 1px solid #dfe5df;
+  border-radius: 7px;
+  background: #fff;
+  color: #466354;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.page-button {
+  padding: 0 10px;
+}
+.page-number.active {
+  border-color: #1e5144;
+  background: #1e5144;
+  color: #fff;
+}
+.page-button:hover:not(:disabled),
+.page-number:hover:not(.active) {
+  background: #edf3ef;
+}
+.page-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
 .room-card {
   display: grid;
@@ -483,6 +563,16 @@ h1 span {
   }
   .panel {
     padding: 18px;
+  }
+  .room-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .search-field {
+    width: 100%;
+  }
+  .search-caption {
+    align-self: flex-end;
   }
   .room-card {
     grid-template-columns: 36px minmax(72px, 1fr) auto;

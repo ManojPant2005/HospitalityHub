@@ -8,5 +8,13 @@ namespace HospitalityHub.Api.Sqlite.Data
 
         public DbSet<Entities.Room> Rooms { get; set; } = null!;
         public DbSet<Entities.Booking> Bookings { get; set; } = null!;
+        public DbSet<Entities.User> Users { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Entities.User>()
+                .HasIndex(user => user.NormalizedEmail)
+                .IsUnique();
+        }
     }
 }

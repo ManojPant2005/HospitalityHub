@@ -79,6 +79,38 @@ namespace HospitalityHub.Api.Sqlite.Data.Migrations
                     b.ToTable("Rooms");
                 });
 
+            modelBuilder.Entity("HospitalityHub.Api.Sqlite.Data.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(254)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .IsRequired()
+                        .HasMaxLength(254)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .IsUnique();
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("HospitalityHub.Api.Sqlite.Data.Entities.Booking", b =>
                 {
                     b.HasOne("HospitalityHub.Api.Sqlite.Data.Entities.Room", "Room")

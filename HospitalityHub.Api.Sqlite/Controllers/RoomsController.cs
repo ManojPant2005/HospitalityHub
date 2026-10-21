@@ -3,11 +3,13 @@ using HospitalityHub.Api.Sqlite.Data.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalityHub.Api.Sqlite.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class RoomsController : ControllerBase
     {
         private readonly AppDbContext _db;

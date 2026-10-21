@@ -27,6 +27,9 @@ export class RoomListComponent implements OnInit {
 
   readonly rooms = signal<Room[]>([]);
   readonly loading = signal(true);
+  readonly searchTerm = signal('');
+  readonly currentPage = signal(1);
+  readonly pageSize = 6;
   readonly saving = signal(false);
   readonly deletingRoomId = signal<number | null>(null);
   readonly loadError = signal<string | null>(null);
@@ -34,6 +37,26 @@ export class RoomListComponent implements OnInit {
   readonly successMessage = signal<string | null>(null);
   readonly availableCount = computed(() => this.rooms().filter((room) => room.isAvailable).length);
   readonly unavailableCount = computed(() => this.rooms().length - this.availableCount());
+  readonly filteredRooms = computed(() => {
+    const search = this.searchTerm().trim().toLocaleLowerCase();
+    if (!search) {
+      return this.rooms();
+    }
+
+    return this.rooms().filter(
+      (room) =>
+        room.roomNumber.toLocaleLowerCase().includes(search) ||
+        room.type.toLocaleLowerCase().includes(search),
+    );
+  });
+  readonly totalPages = computed(() => Math.max(1, Math.ceil(this.filteredRooms().length / this.pageSize)));
+  readonly visibleRooms = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize;
+    return this.filteredRooms().slice(start, start + this.pageSize);
+  });
+  readonly pageNumbers = computed(() =>
+    Array.from({ length: this.totalPages() }, (_, index) => index + 1),
+  );
 
   readonly roomForm = this.formBuilder.nonNullable.group({
     roomNumber: ['', [Validators.required, Validators.pattern(/\S/), Validators.maxLength(20)]],
@@ -81,6 +104,7 @@ export class RoomListComponent implements OnInit {
       .subscribe({
         next: (room) => {
           this.rooms.update((rooms) => [...rooms, room]);
+          this.currentPage.set(this.totalPages());
           this.successMessage.set(`Room ${room.roomNumber} has been added.`);
           this.roomForm.reset({
             roomNumber: '',
@@ -110,12 +134,30 @@ export class RoomListComponent implements OnInit {
       .subscribe({
         next: () => {
           this.rooms.update((rooms) => rooms.filter((room) => room.id !== id));
+          this.currentPage.set(Math.min(this.currentPage(), this.totalPages()));
         },
         error: (error: unknown) => {
           console.error('Failed to delete room.', error);
           this.actionError.set(this.getErrorMessage(error));
         },
       });
+  }
+
+  onSearchInput(event: Event): void {
+    if (!(event.target instanceof HTMLInputElement)) {
+      return;
+    }
+    this.searchTerm.set(event.target.value);
+    this.currentPage.set(1);
+  }
+
+  clearSearch(): void {
+    this.searchTerm.set('');
+    this.currentPage.set(1);
+  }
+
+  goToPage(page: number): void {
+    this.currentPage.set(Math.min(Math.max(page, 1), this.totalPages()));
   }
 
   private getErrorMessage(error: unknown): string {

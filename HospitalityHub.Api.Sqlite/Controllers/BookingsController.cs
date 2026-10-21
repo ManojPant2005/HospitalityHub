@@ -2,12 +2,14 @@ using System.ComponentModel.DataAnnotations;
 using HospitalityHub.Api.Sqlite.Data;
 using HospitalityHub.Api.Sqlite.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalityHub.Api.Sqlite.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class BookingsController(AppDbContext db) : ControllerBase
 {
     [HttpGet]

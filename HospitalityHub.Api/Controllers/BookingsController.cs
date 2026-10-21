@@ -2,12 +2,14 @@ using System.ComponentModel.DataAnnotations;
 using HospitalityHub.Api.Data;
 using HospitalityHub.Api.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalityHub.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class BookingsController(AppDbContext db) : ControllerBase
 {
     [HttpGet]

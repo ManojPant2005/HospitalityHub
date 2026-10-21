@@ -141,10 +141,27 @@
         </div>
         @if (!loading() && !loadError()) {
           <span class="room-count"
-            >{{ rooms().length }} {{ rooms().length === 1 ? 'ROOM' : 'ROOMS' }}</span
+            >{{ filteredRooms().length }} {{ filteredRooms().length === 1 ? 'ROOM' : 'ROOMS' }}</span
           >
         }
       </div>
+
+      @if (!loading() && !loadError() && rooms().length > 0) {
+        <div class="room-toolbar">
+          <label class="search-field" for="room-search">
+            <span aria-hidden="true">⌕</span>
+            <input
+              id="room-search"
+              type="search"
+              [value]="searchTerm()"
+              (input)="onSearchInput($event)"
+              placeholder="Search by room number or type"
+              autocomplete="off"
+            />
+          </label>
+          <span class="search-caption">Showing {{ filteredRooms().length }} of {{ rooms().length }} rooms</span>
+        </div>
+      }
 
       @if (loading()) {
         <div class="loading-state" role="status">
@@ -164,12 +181,19 @@
           <h3>Your rooms will appear here</h3>
           <p>Start by adding the first room to your property.</p>
         </div>
+      } @else if (filteredRooms().length === 0) {
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">⌕</span>
+          <h3>No matching rooms</h3>
+          <p>Try another room number or room type.</p>
+          <button class="secondary-button" type="button" (click)="clearSearch()">Clear search</button>
+        </div>
       } @else {
         @if (actionError(); as error) {
           <p class="notice notice-error inventory-notice" role="alert">{{ error }}</p>
         }
         <div class="room-list">
-          @for (room of rooms(); track room.id) {
+          @for (room of visibleRooms(); track room.id) {
             <article class="room-card">
               <div class="room-avatar" aria-hidden="true">{{ room.roomNumber.slice(0, 1) }}</div>
               <div class="room-details">
@@ -200,6 +224,40 @@
             </article>
           }
         </div>
+        @if (totalPages() > 1) {
+          <nav class="pagination" aria-label="Room list pages">
+            <button
+              class="page-button"
+              type="button"
+              [disabled]="currentPage() === 1"
+              (click)="goToPage(currentPage() - 1)"
+              aria-label="Previous page"
+            >
+              Previous
+            </button>
+            @for (page of pageNumbers(); track page) {
+              <button
+                class="page-number"
+                type="button"
+                [class.active]="currentPage() === page"
+                [attr.aria-current]="currentPage() === page ? 'page' : null"
+                [attr.aria-label]="'Page ' + page"
+                (click)="goToPage(page)"
+              >
+                {{ page }}
+              </button>
+            }
+            <button
+              class="page-button"
+              type="button"
+              [disabled]="currentPage() === totalPages()"
+              (click)="goToPage(currentPage() + 1)"
+              aria-label="Next page"
+            >
+              Next
+            </button>
+          </nav>
+        }
       }
     </section>
   </div>

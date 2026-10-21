@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Booking, CreateBookingRequest } from '../models/booking';
 import { Room } from '../models/room';
+import { API_BASE_URL } from '../config/api-base-url';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private baseUrl = 'https://localhost:7094/api';
+  private readonly baseUrl = inject(API_BASE_URL);
 
   constructor(private http: HttpClient) {}
 
