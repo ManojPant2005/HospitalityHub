@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="info.md" />
+    <File Path="LEARNING-NOTES.md" />
   </Folder>
   <Project Path="HospitalityHub.Api.Sqlite/HospitalityHub.Api.Sqlite.csproj" />
   <Project Path="HospitalityHub.Api/HospitalityHub.Api.csproj" />

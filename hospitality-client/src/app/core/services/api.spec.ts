@@ -1,33 +1,27 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Room, Booking } from '../models/room';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { ApiService } from './api';
 
-@Injectable({ providedIn: 'root' })
-export class ApiService {
-  private baseUrl = 'https://localhost:7094/api'; // YOUR API URL
+describe('ApiService', () => {
+  let service: ApiService;
+  let httpTestingController: HttpTestingController;
 
-  constructor(private http: HttpClient) {}
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [ApiService, provideHttpClient(), provideHttpClientTesting()],
+    });
+    service = TestBed.inject(ApiService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+  });
 
-  // Rooms
-  getRooms(): Observable<Room[]> {
-    return this.http.get<Room[]>(`${this.baseUrl}/rooms`);
-  }
-  getRoom(id: number): Observable<Room> {
-    return this.http.get<Room>(`${this.baseUrl}/rooms/${id}`);
-  }
-  createRoom(room: Room): Observable<Room> {
-    return this.http.post<Room>(`${this.baseUrl}/rooms`, room);
-  }
-  deleteRoom(id: number) {
-    return this.http.delete(`${this.baseUrl}/rooms/${id}`);
-  }
+  afterEach(() => httpTestingController.verify());
 
-  // Bookings
-  getBookings(): Observable<Booking[]> {
-    return this.http.get<Booking[]>(`${this.baseUrl}/bookings`);
-  }
-  createBooking(booking: Booking): Observable<Booking> {
-    return this.http.post<Booking>(`${this.baseUrl}/bookings`, booking);
-  }
-}
+  it('should request the room list from the API', () => {
+    service.getRooms().subscribe((rooms) => expect(rooms).toEqual([]));
+
+    const request = httpTestingController.expectOne('https://localhost:7094/api/rooms');
+    expect(request.request.method).toBe('GET');
+    request.flush([]);
+  });
+});
