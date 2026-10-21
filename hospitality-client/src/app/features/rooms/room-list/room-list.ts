@@ -10,9 +10,11 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiService } from '../../../core/services/api';
 import { Room } from '../../../core/models/room';
+import { AuthService } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-room-list',
@@ -24,6 +26,8 @@ import { Room } from '../../../core/models/room';
 export class RoomListComponent implements OnInit {
   private readonly api = inject(ApiService);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
   readonly rooms = signal<Room[]>([]);
   readonly loading = signal(true);
@@ -67,6 +71,11 @@ export class RoomListComponent implements OnInit {
 
   ngOnInit() {
     this.loadRooms();
+  }
+
+  logout(): void {
+    this.auth.logout();
+    void this.router.navigateByUrl('/login');
   }
 
   loadRooms() {
@@ -147,13 +156,16 @@ export class RoomListComponent implements OnInit {
     if (!(event.target instanceof HTMLInputElement)) {
       return;
     }
-    this.searchTerm.set(event.target.value);
+    this.setSearchTerm(event.target.value);
+  }
+
+  setSearchTerm(searchTerm: string): void {
+    this.searchTerm.set(searchTerm);
     this.currentPage.set(1);
   }
 
   clearSearch(): void {
-    this.searchTerm.set('');
-    this.currentPage.set(1);
+    this.setSearchTerm('');
   }
 
   goToPage(page: number): void {

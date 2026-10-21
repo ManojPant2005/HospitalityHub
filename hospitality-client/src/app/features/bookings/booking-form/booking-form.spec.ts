@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { Booking, CreateBookingRequest } from '../../../core/models/booking';
 import { Room } from '../../../core/models/room';
 import { ApiService } from '../../../core/services/api';
+import { AuthService } from '../../../core/services/auth';
 import { BookingForm } from './booking-form';
 
 describe('BookingForm', () => {
@@ -33,6 +34,7 @@ describe('BookingForm', () => {
       imports: [BookingForm],
       providers: [
         provideRouter([]),
+        { provide: AuthService, useValue: { logout: () => undefined } },
         {
           provide: ApiService,
           useValue: {

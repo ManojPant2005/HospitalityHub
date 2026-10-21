@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { ApiService } from '../../../core/services/api';
+import { AuthService } from '../../../core/services/auth';
 
 import { BookingList } from './booking-list';
 
@@ -14,6 +15,7 @@ describe('BookingList', () => {
       imports: [BookingList],
       providers: [
         provideRouter([]),
+        { provide: AuthService, useValue: { logout: () => undefined } },
         {
           provide: ApiService,
           useValue: { getBookings: () => of([]) },

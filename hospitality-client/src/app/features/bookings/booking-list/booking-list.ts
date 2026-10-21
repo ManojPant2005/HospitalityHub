@@ -1,9 +1,10 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Booking } from '../../../core/models/booking';
 import { ApiService } from '../../../core/services/api';
+import { AuthService } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-booking-list',
@@ -14,6 +15,8 @@ import { ApiService } from '../../../core/services/api';
 })
 export class BookingList implements OnInit {
   private readonly api = inject(ApiService);
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
   readonly bookings = signal<Booking[]>([]);
   readonly loading = signal(true);
@@ -30,6 +33,11 @@ export class BookingList implements OnInit {
 
   ngOnInit(): void {
     this.loadBookings();
+  }
+
+  logout(): void {
+    this.auth.logout();
+    void this.router.navigateByUrl('/login');
   }
 
   loadBookings(): void {

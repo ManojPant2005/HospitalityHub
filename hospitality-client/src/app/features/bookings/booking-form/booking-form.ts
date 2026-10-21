@@ -3,9 +3,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ApiService } from '../../../core/services/api';
 import { Room } from '../../../core/models/room';
+import { AuthService } from '../../../core/services/auth';
 
 function bookingDateValidator(control: AbstractControl): ValidationErrors | null {
   const checkIn = control.get('checkIn')?.value;
@@ -50,6 +51,8 @@ export class BookingFormComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly api = inject(ApiService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
   readonly today = localDateString(new Date());
   readonly rooms = signal<Room[]>([]);
@@ -92,6 +95,11 @@ export class BookingFormComponent implements OnInit {
           this.loadingRooms.set(false);
         },
       });
+  }
+
+  logout(): void {
+    this.auth.logout();
+    void this.router.navigateByUrl('/login');
   }
 
   hasError(controlName: 'roomId' | 'guestName' | 'guestEmail' | 'checkIn' | 'checkOut'): boolean {

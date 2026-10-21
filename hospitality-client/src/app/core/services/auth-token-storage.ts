@@ -14,7 +14,8 @@ export class AuthTokenStorage {
     }
 
     const expiresAt = this.read(TOKEN_EXPIRY_KEY);
-    if (!expiresAt || Date.parse(expiresAt) <= Date.now()) {
+    const expirationTimestamp = expiresAt ? Date.parse(expiresAt) : Number.NaN;
+    if (!Number.isFinite(expirationTimestamp) || expirationTimestamp <= Date.now()) {
       this.clear();
       return false;
     }

@@ -8,6 +8,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { loadingErrorInterceptor } from './loading-error.interceptor';
 import { GlobalApiErrorService } from '../services/global-api-error';
 import { GlobalLoadingService } from '../services/global-loading';
@@ -24,6 +25,7 @@ describe('loadingErrorInterceptor', () => {
       providers: [
         provideHttpClient(withInterceptors([loadingErrorInterceptor])),
         provideHttpClientTesting(),
+        provideRouter([]),
       ],
     });
 

@@ -4,8 +4,9 @@ import { API_BASE_URL } from '../config/api-base-url';
 import { AuthTokenStorage } from '../services/auth-token-storage';
 
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
-  const accessToken = inject(AuthTokenStorage).accessToken();
+  const tokenStorage = inject(AuthTokenStorage);
   const apiBaseUrl = inject(API_BASE_URL);
+  const accessToken = tokenStorage.hasValidToken() ? tokenStorage.accessToken() : null;
 
   if (!accessToken || !isApiRequest(request.url, apiBaseUrl)) {
     return next(request);
