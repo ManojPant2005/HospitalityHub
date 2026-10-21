@@ -9,13 +9,14 @@ import {
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ApiService } from '../../../core/services/api';
 import { Room } from '../../../core/models/room';
 
 @Component({
   selector: 'app-room-list',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, RouterLinkActive],
   templateUrl: './room-list.html',
   styleUrl: './room-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

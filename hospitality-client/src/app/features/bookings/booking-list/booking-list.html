@@ -1,1 +1,113 @@
-<p>booking-list works!</p>
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" routerLink="/" aria-label="Hospitality Hub home">
+      <span class="brand-mark" aria-hidden="true">H</span>
+      <span>Hospitality<span class="brand-light">Hub</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Rooms</a>
+      <a routerLink="/bookings" routerLinkActive="active">Bookings</a>
+      <a class="nav-action" routerLink="/book">New booking</a>
+    </nav>
+  </header>
+
+  <section class="page-intro" aria-labelledby="page-title">
+    <p class="eyebrow">EVERY STAY, IN ONE PLACE</p>
+    <h1 id="page-title">Guest <span>bookings</span></h1>
+    <p class="intro-copy">Review confirmed reservations and keep track of upcoming stays.</p>
+  </section>
+
+  <section class="stats-grid" aria-label="Booking summary">
+    <article class="stat-card">
+      <span class="stat-label">TOTAL BOOKINGS</span>
+      <strong>{{ bookings().length }}</strong>
+      <span class="stat-caption">reservations on record</span>
+    </article>
+    <article class="stat-card">
+      <span class="stat-label">CONFIRMED</span>
+      <strong>{{ confirmedCount() }}</strong>
+      <span class="stat-caption">ready for your guests</span>
+    </article>
+    <article class="stat-card">
+      <span class="stat-label">BOOKED REVENUE</span>
+      <strong>{{ totalRevenue() | currency: 'USD' : 'symbol' : '1.0-0' }}</strong>
+      <span class="stat-caption">excluding cancelled stays</span>
+    </article>
+  </section>
+
+  <section class="panel booking-panel" aria-labelledby="booking-list-title">
+    <div class="panel-heading">
+      <div>
+        <p class="eyebrow">RESERVATION REGISTER</p>
+        <h2 id="booking-list-title">All bookings</h2>
+      </div>
+      <button class="refresh-button" type="button" (click)="loadBookings()" [disabled]="loading()">
+        @if (loading()) {
+          Refreshing...
+        } @else {
+          Refresh list
+        }
+      </button>
+    </div>
+
+    @if (loading()) {
+      <div class="loading-state" role="status">
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Loading bookings...</span>
+      </div>
+    } @else if (loadError(); as error) {
+      <div class="empty-state error-state" role="alert">
+        <span class="empty-icon" aria-hidden="true">!</span>
+        <h3>Bookings couldn't be loaded</h3>
+        <p>{{ error }}</p>
+        <button class="secondary-button" type="button" (click)="loadBookings()">Try again</button>
+      </div>
+    } @else if (bookings().length === 0) {
+      <div class="empty-state">
+        <span class="empty-icon" aria-hidden="true">+</span>
+        <h3>No bookings yet</h3>
+        <p>Once you confirm a reservation, it will appear here for easy reference.</p>
+        <a class="primary-link" routerLink="/book">Create your first booking</a>
+      </div>
+    } @else {
+      <div class="booking-list">
+        @for (booking of bookings(); track booking.id) {
+          <article class="booking-card">
+            <div class="booking-avatar" aria-hidden="true">
+              {{ booking.guestName.slice(0, 1).toUpperCase() }}
+            </div>
+            <div class="guest-details">
+              <div class="guest-heading">
+                <h3>{{ booking.guestName }}</h3>
+                <span
+                  class="status-badge"
+                  [class.is-confirmed]="booking.status.toLowerCase() === 'confirmed'"
+                  [class.is-cancelled]="booking.status.toLowerCase() === 'cancelled'"
+                >
+                  <span class="status-dot" aria-hidden="true"></span>
+                  {{ booking.status }}
+                </span>
+              </div>
+              <a class="guest-email" [href]="'mailto:' + booking.guestEmail">{{ booking.guestEmail }}</a>
+              <span class="room-info">
+                Room {{ booking.room?.roomNumber ?? booking.roomId }}
+                @if (booking.room?.type) {
+                  · {{ booking.room?.type }}
+                }
+              </span>
+            </div>
+            <div class="stay-details">
+              <span class="detail-label">CHECK-IN / CHECK-OUT</span>
+              <strong>{{ booking.checkIn | date: 'MMM d, y' }}</strong>
+              <span>to {{ booking.checkOut | date: 'MMM d, y' }}</span>
+            </div>
+            <div class="amount-details">
+              <span class="detail-label">TOTAL</span>
+              <strong>{{ booking.totalAmount | currency: 'USD' : 'symbol' : '1.2-2' }}</strong>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </section>
+</main>

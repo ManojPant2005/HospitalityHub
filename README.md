@@ -90,7 +90,10 @@ Change API URL in src/app/core/services/api.ts:
 
 TypeScript
 private baseUrl = 'https://localhost:7094/api'; // For SQL Server
-// private baseUrl = 'https://localhost:7200/api'; // For SQLite
+// private baseUrl = 'https://localhost:7208/api'; // For SQLite
+
+Reservations are saved with `POST /bookings` and displayed from `GET /bookings`.
+The API validates the selected room and dates, then calculates and stores the stay total.
 
  
  Learning Roadmap - My Progress

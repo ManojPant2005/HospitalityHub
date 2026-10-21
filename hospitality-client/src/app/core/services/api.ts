@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Room, Booking } from '../models/room';
+import { Booking, CreateBookingRequest } from '../models/booking';
+import { Room } from '../models/room';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -24,7 +25,7 @@ export class ApiService {
   getBookings(): Observable<Booking[]> {
     return this.http.get<Booking[]>(`${this.baseUrl}/bookings`);
   }
-  createBooking(booking: Booking): Observable<Booking> {
+  createBooking(booking: CreateBookingRequest): Observable<Booking> {
     return this.http.post<Booking>(`${this.baseUrl}/bookings`, booking);
   }
 }

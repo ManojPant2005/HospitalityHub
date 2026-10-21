@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
 import { Room } from '../../../core/models/room';
 import { ApiService } from '../../../core/services/api';
@@ -9,6 +10,7 @@ describe('RoomListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RoomListComponent],
       providers: [
+        provideRouter([]),
         {
           provide: ApiService,
           useValue: {

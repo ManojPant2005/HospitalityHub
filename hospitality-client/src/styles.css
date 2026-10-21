@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, 'Segoe UI', Arial, sans-serif;
+  font-family: 'Poppins', 'Inter', sans-serif;
   color: #263d34;
   background: #f5f6f3;
   font-synthesis: none;
@@ -15,9 +15,12 @@ body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  font-family: inherit;
 }
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 button:focus-visible,

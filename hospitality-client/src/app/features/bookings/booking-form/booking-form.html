@@ -1,1 +1,192 @@
-<p>booking-form works!</p>
+<main class="page-shell">
+  <header class="topbar">
+    <a class="brand" routerLink="/" aria-label="Hospitality Hub home">
+      <span class="brand-mark" aria-hidden="true">H</span>
+      <span>Hospitality<span class="brand-light">Hub</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Rooms</a>
+      <a routerLink="/bookings" routerLinkActive="active">Bookings</a>
+      <a class="nav-action" routerLink="/book">New booking</a>
+    </nav>
+  </header>
+
+  <section class="page-intro" aria-labelledby="page-title">
+    <p class="eyebrow">A WARM WELCOME STARTS HERE</p>
+    <h1 id="page-title">Create a <span>reservation</span></h1>
+    <p class="intro-copy">Add your guest's details and we'll take care of the rest.</p>
+  </section>
+
+  <div class="booking-layout">
+    <section class="panel form-panel" aria-labelledby="guest-details-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">RESERVATION DETAILS</p>
+          <h2 id="guest-details-title">Guest information</h2>
+        </div>
+        <span class="step-number" aria-hidden="true">01</span>
+      </div>
+      <p class="panel-description">Fields marked with * are required.</p>
+
+      @if (roomLoadError(); as error) {
+        <div class="notice notice-error" role="alert">
+          <strong>Rooms couldn't be loaded.</strong>
+          <span>{{ error }}</span>
+        </div>
+      } @else if (!loadingRooms() && rooms().length === 0) {
+        <div class="notice notice-info" role="status">
+          There are no available rooms to book right now. Please check back later.
+        </div>
+      }
+
+      <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="field">
+          <label for="roomId">Choose a room <span>*</span></label>
+          <select
+            id="roomId"
+            formControlName="roomId"
+            [attr.aria-invalid]="hasError('roomId')"
+            aria-describedby="room-hint room-error"
+          >
+            <option value="" disabled>Select an available room</option>
+            @for (room of rooms(); track room.id) {
+              <option [value]="room.id">
+                Room {{ room.roomNumber }} · {{ room.type }} ·
+                {{ room.pricePerNight | currency: 'USD' : 'symbol' : '1.2-2' }} / night
+              </option>
+            }
+          </select>
+          <span id="room-hint" class="field-hint">Only rooms marked available can be reserved.</span>
+          @if (hasError('roomId')) {
+            <span id="room-error" class="field-error">Choose an available room.</span>
+          }
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="guestName">Guest name <span>*</span></label>
+            <input
+              id="guestName"
+              type="text"
+              formControlName="guestName"
+              autocomplete="name"
+              maxlength="100"
+              placeholder="e.g. Alex Morgan"
+              [attr.aria-invalid]="hasError('guestName')"
+              aria-describedby="guest-name-error"
+            />
+            @if (hasError('guestName')) {
+              <span id="guest-name-error" class="field-error">Enter the guest's name (up to 100 characters).</span>
+            }
+          </div>
+
+          <div class="field">
+            <label for="guestEmail">Email address <span>*</span></label>
+            <input
+              id="guestEmail"
+              type="email"
+              formControlName="guestEmail"
+              autocomplete="email"
+              maxlength="254"
+              placeholder="alex@example.com"
+              [attr.aria-invalid]="hasError('guestEmail')"
+              aria-describedby="guest-email-error"
+            />
+            @if (hasError('guestEmail')) {
+              <span id="guest-email-error" class="field-error">Enter a valid email address.</span>
+            }
+          </div>
+        </div>
+
+        <div class="field-grid date-grid">
+          <div class="field">
+            <label for="checkIn">Check-in <span>*</span></label>
+            <input
+              id="checkIn"
+              type="date"
+              formControlName="checkIn"
+              [min]="today"
+              [attr.aria-invalid]="hasError('checkIn') || bookingForm.hasError('checkInInPast')"
+              aria-describedby="check-in-error"
+            />
+            @if (hasError('checkIn')) {
+              <span id="check-in-error" class="field-error">Choose a check-in date today or later.</span>
+            } @else if (bookingForm.hasError('checkInInPast') && submitted()) {
+              <span id="check-in-error" class="field-error">Check-in cannot be in the past.</span>
+            }
+          </div>
+
+          <div class="field">
+            <label for="checkOut">Check-out <span>*</span></label>
+            <input
+              id="checkOut"
+              type="date"
+              formControlName="checkOut"
+              [min]="bookingForm.controls.checkIn.value || today"
+              [attr.aria-invalid]="hasError('checkOut') || bookingForm.hasError('checkOutBeforeCheckIn')"
+              aria-describedby="check-out-error"
+            />
+            @if (hasError('checkOut')) {
+              <span id="check-out-error" class="field-error">Choose a check-out date.</span>
+            } @else if (bookingForm.hasError('checkOutBeforeCheckIn') && submitted()) {
+              <span id="check-out-error" class="field-error">Check-out must be after check-in.</span>
+            }
+          </div>
+        </div>
+
+        @if (errorMessage(); as error) {
+          <div class="notice notice-error" role="alert">{{ error }}</div>
+        }
+        @if (successMessage(); as message) {
+          <div class="notice notice-success" role="status">
+            <span>{{ message }}</span>
+            <a routerLink="/bookings">View all bookings</a>
+          </div>
+        }
+
+        <button
+          class="primary-button"
+          type="submit"
+          [disabled]="saving() || loadingRooms() || rooms().length === 0"
+        >
+          @if (saving()) {
+            Saving reservation...
+          } @else {
+            Confirm reservation
+          }
+        </button>
+      </form>
+    </section>
+
+    <aside class="summary-panel" aria-labelledby="summary-title">
+      <div class="summary-icon" aria-hidden="true">✦</div>
+      <p class="eyebrow">YOUR STAY</p>
+      <h2 id="summary-title">Booking summary</h2>
+
+      @if (bookingForm.controls.roomId.value; as roomId) {
+        @for (room of rooms(); track room.id) {
+          @if (room.id.toString() === roomId) {
+            <div class="selected-room">
+              <span class="room-label">SELECTED ROOM</span>
+              <strong>Room {{ room.roomNumber }}</strong>
+              <span>{{ room.type }} · {{ room.pricePerNight | currency: 'USD' : 'symbol' : '1.2-2' }} / night</span>
+            </div>
+          }
+        }
+      } @else {
+        <p class="summary-placeholder">Your selected room and stay details will appear here.</p>
+      }
+
+      <div class="summary-divider"></div>
+      <div class="summary-row">
+        <span>Length of stay</span>
+        <strong>{{ totalNights() }} {{ totalNights() === 1 ? 'night' : 'nights' }}</strong>
+      </div>
+      <div class="summary-row total-row">
+        <span>Estimated total</span>
+        <strong>{{ totalAmount() | currency: 'USD' : 'symbol' : '1.2-2' }}</strong>
+      </div>
+      <p class="summary-footnote">Final total is calculated by the booking service when you confirm.</p>
+    </aside>
+  </div>
+</main>

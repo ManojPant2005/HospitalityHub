@@ -36,12 +36,37 @@
   border-radius: 11px;
   background: #1e5144;
   color: white;
-  font-family: Georgia, serif;
   font-size: 20px;
 }
 
 .brand-light {
   font-weight: 450;
+}
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.main-nav a {
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: #617169;
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.main-nav a:hover,
+.main-nav a.active:not(.nav-action) {
+  background: #edf2ee;
+  color: #1e5144;
+}
+.main-nav .nav-action {
+  margin-left: 4px;
+  background: #1e5144;
+  color: #fff;
+}
+.main-nav .nav-action:hover {
+  background: #163e34;
 }
 .workspace-label,
 .eyebrow,
@@ -69,7 +94,6 @@ p {
 h1 {
   margin-bottom: 8px;
   color: #193c32;
-  font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(34px, 5vw, 48px);
   font-weight: 500;
   letter-spacing: -1.6px;
@@ -140,7 +164,6 @@ h1 span {
 }
 .step-number {
   color: #a4b5ac;
-  font-family: Georgia, serif;
   font-size: 24px;
 }
 .panel-description {
@@ -289,7 +312,6 @@ h1 span {
   border-radius: 10px;
   background: #edf3ef;
   color: #386352;
-  font-family: Georgia, serif;
   font-size: 18px;
 }
 .room-details h3 {
@@ -480,5 +502,14 @@ h1 span {
     grid-column: 3;
     grid-row: 2;
     justify-self: end;
+  }
+}
+
+@media (max-width: 400px) {
+  .topbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 0;
   }
 }
