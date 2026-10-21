@@ -47,12 +47,20 @@ HospitalityHub/
 - [x] RESTful APIs with Swagger Documentation
 
 #### Frontend Highlights
-- [x] Standalone Components (No NgModules - Modern Angular)
-- [x] Generic ApiService with Observables
-- [x] Service Injection & Dependency Injection
-- [ ] Reactive Forms for Booking (Next)
-- [ ] Route Guards & Lazy Loading (Next)
-- [ ] Signals for State Management (Next)
+- [x] Standalone Angular components and application routes
+- [x] Shared API service with `HttpClient`, dependency injection, and Observables
+- [x] Room management: create, list, and delete rooms
+- [x] Booking form with reactive validation, live stay total, success, and API error feedback
+- [x] Booking management: create and list reservations
+- [x] Responsive room and booking views with a shared Poppins / Inter font stack
+- [x] Signals for local UI state and computed booking summaries
+- [x] Global HTTP interceptor for request loading state and API error notifications
+- [ ] Booking update and cancellation (remaining Level 1 CRUD scope)
+- [ ] Route guards and lazy-loaded feature routes
+
+#### Learning progress
+- **Level 1 — CRUD foundations:** Substantially complete. Room create/list/delete and booking create/list are implemented. Booking update/delete are not yet implemented, so full CRUD is still a future task.
+- **Level 2 — Enterprise features:** In progress. A functional HTTP interceptor now tracks active requests and surfaces API failures globally. See the beginner-friendly [Level 1 and Level 2 learning notebook](./hospitality-client/LEVEL-1-AND-LEVEL-2-NOTES.ipynb).
 
 ###  Getting Started - Run Locally
 
