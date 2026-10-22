@@ -103,11 +103,12 @@ cd hospitality-client
 npm install
 ng serve
 # App runs at http://localhost:4200
-The API base URL is configured in `hospitality-client/src/app/core/config/api-base-url.ts`:
+Angular uses the SQLite API's HTTPS URL during local development. The production URL is configured in `hospitality-client/public/runtime-config.js`:
 
-TypeScript
-factory: () => 'https://localhost:7094/api', // SQL Server
-// factory: () => 'https://localhost:7208/api', // SQLite
+```text
+Development: https://localhost:7208/api
+Production:  https://<your-render-service>.onrender.com/api
+```
 
 Reservations are saved with `POST /bookings` and displayed from `GET /bookings`.
 The API validates the selected room and dates, then calculates and stores the stay total.

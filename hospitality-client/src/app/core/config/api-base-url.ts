@@ -12,6 +12,6 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL', {
   providedIn: 'root',
   factory: () =>
     isDevMode()
-      ? 'https://localhost:7094/api'
+      ? 'https://localhost:7208/api'
       : (window.hospitalityConfig?.apiBaseUrl ?? 'https://hospitalityhub-api.onrender.com/api'),
 });

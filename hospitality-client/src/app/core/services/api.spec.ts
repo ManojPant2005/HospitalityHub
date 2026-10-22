@@ -21,7 +21,7 @@ describe('ApiService', () => {
   it('should request the room list from the API', () => {
     service.getRooms().subscribe((rooms) => expect(rooms).toEqual([]));
 
-    const request = httpTestingController.expectOne('https://localhost:7094/api/rooms');
+    const request = httpTestingController.expectOne('https://localhost:7208/api/rooms');
     expect(request.request.method).toBe('GET');
     request.flush([]);
   });
@@ -37,7 +37,7 @@ describe('ApiService', () => {
 
     service.createBooking(booking).subscribe((created) => expect(created.id).toBe(12));
 
-    const request = httpTestingController.expectOne('https://localhost:7094/api/bookings');
+    const request = httpTestingController.expectOne('https://localhost:7208/api/bookings');
     expect(request.request.method).toBe('POST');
     expect(request.request.body).toEqual(booking);
     request.flush({ ...booking, id: 12, status: 'Confirmed', totalAmount: 240 });

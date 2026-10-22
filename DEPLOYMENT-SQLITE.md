@@ -54,12 +54,14 @@ The API applies EF Core migrations automatically at startup and reads its listen
 
 The API does not expose Swagger UI in Production. Use `/health` to verify it is responding.
 
-## 2. Configure Angular for local SQL Server and deployed SQLite
+## 2. Configure Angular for local and deployed SQLite
 
 The app now selects its API URL based on build mode:
 
-- `ng serve` / development build: `https://localhost:7094/api` (the existing local SQL Server API).
+- `ng serve` / development build: `https://localhost:7208/api` (the local SQLite API's HTTPS address).
 - Production build: the API URL from `hospitality-client/public/runtime-config.js` (the deployed SQLite API).
+
+To run this local setup, start `HospitalityHub.Api.Sqlite` with its HTTPS profile and run `ng serve`. If the browser reports a certificate error, trust the local ASP.NET Core development certificate with `dotnet dev-certs https --trust`, then restart the browser.
 
 After creating the Render service, edit `hospitality-client/public/runtime-config.js` and replace the example URL with your exact Render URL:
 
