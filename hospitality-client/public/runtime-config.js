@@ -1,3 +1,3 @@
 window.hospitalityConfig = {
-  apiBaseUrl: 'https://hospitalityhub-api.onrender.com/api',
+  apiBaseUrl: 'https://hospitalityhub-j5yl.onrender.com/api',
 };
