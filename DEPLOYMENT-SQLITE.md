@@ -1,3 +1,13 @@
+# Web app deployed successfully 
+
+#  Angular Client Project
+https://hospitality-client.netlify.app/
+
+
+# Web API Project
+https://hospitalityhub-j5yl.onrender.com/  
+
+
 # Deploy the SQLite API and Angular app for free
 
 This is a separate demo deployment path for people who cannot use Azure SQL or paid hosting. It deploys the **SQLite practice API** to a Render Free web service and the Angular app to Netlify. It does not deploy the SQL Server API.
