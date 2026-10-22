@@ -2,13 +2,15 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 import { Booking } from '../../../core/models/booking';
 import { ApiService } from '../../../core/services/api';
 import { AuthService } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-booking-list',
-  imports: [CurrencyPipe, DatePipe, RouterLink, RouterLinkActive],
+  imports: [CurrencyPipe, DatePipe, MatCardModule, MatTableModule, RouterLink, RouterLinkActive],
   templateUrl: './booking-list.html',
   styleUrl: './booking-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,6 +21,7 @@ export class BookingList implements OnInit {
   private readonly router = inject(Router);
 
   readonly bookings = signal<Booking[]>([]);
+  readonly bookingColumns = ['guest', 'room', 'dates', 'status', 'total'];
   readonly loading = signal(true);
   readonly loadError = signal<string | null>(null);
   readonly confirmedCount = computed(

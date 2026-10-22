@@ -19,21 +19,21 @@
   </section>
 
   <section class="stats-grid" aria-label="Booking summary">
-    <article class="stat-card">
+    <mat-card appearance="outlined" class="stat-card">
       <span class="stat-label">TOTAL BOOKINGS</span>
       <strong>{{ bookings().length }}</strong>
       <span class="stat-caption">reservations on record</span>
-    </article>
-    <article class="stat-card">
+    </mat-card>
+    <mat-card appearance="outlined" class="stat-card">
       <span class="stat-label">CONFIRMED</span>
       <strong>{{ confirmedCount() }}</strong>
       <span class="stat-caption">ready for your guests</span>
-    </article>
-    <article class="stat-card">
+    </mat-card>
+    <mat-card appearance="outlined" class="stat-card">
       <span class="stat-label">BOOKED REVENUE</span>
       <strong>{{ totalRevenue() | currency: 'USD' : 'symbol' : '1.0-0' }}</strong>
       <span class="stat-caption">excluding cancelled stays</span>
-    </article>
+    </mat-card>
   </section>
 
   <section class="panel booking-panel" aria-labelledby="booking-list-title">
@@ -71,43 +71,60 @@
         <a class="primary-link" routerLink="/book">Create your first booking</a>
       </div>
     } @else {
-      <div class="booking-list">
-        @for (booking of bookings(); track booking.id) {
-          <article class="booking-card">
-            <div class="booking-avatar" aria-hidden="true">
-              {{ booking.guestName.slice(0, 1).toUpperCase() }}
-            </div>
-            <div class="guest-details">
-              <div class="guest-heading">
-                <h3>{{ booking.guestName }}</h3>
-                <span
-                  class="status-badge"
-                  [class.is-confirmed]="booking.status.toLowerCase() === 'confirmed'"
-                  [class.is-cancelled]="booking.status.toLowerCase() === 'cancelled'"
-                >
-                  <span class="status-dot" aria-hidden="true"></span>
-                  {{ booking.status }}
-                </span>
-              </div>
-              <a class="guest-email" [href]="'mailto:' + booking.guestEmail">{{ booking.guestEmail }}</a>
-              <span class="room-info">
-                Room {{ booking.room?.roomNumber ?? booking.roomId }}
-                @if (booking.room?.type) {
-                  · {{ booking.room?.type }}
-                }
-              </span>
-            </div>
-            <div class="stay-details">
-              <span class="detail-label">CHECK-IN / CHECK-OUT</span>
+      <div class="booking-table-container">
+        <table mat-table [dataSource]="bookings()" class="booking-table">
+          <ng-container matColumnDef="guest">
+            <th mat-header-cell *matHeaderCellDef>Guest</th>
+            <td mat-cell *matCellDef="let booking">
+              <a class="guest-email" [href]="'mailto:' + booking.guestEmail">
+                <strong>{{ booking.guestName }}</strong>
+                <span>{{ booking.guestEmail }}</span>
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="room">
+            <th mat-header-cell *matHeaderCellDef>Room</th>
+            <td mat-cell *matCellDef="let booking">
+              Room {{ booking.room?.roomNumber ?? booking.roomId }}
+              @if (booking.room?.type) {
+                <span class="room-type">{{ booking.room?.type }}</span>
+              }
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dates">
+            <th mat-header-cell *matHeaderCellDef>Stay dates</th>
+            <td mat-cell *matCellDef="let booking">
               <strong>{{ booking.checkIn | date: 'MMM d, y' }}</strong>
-              <span>to {{ booking.checkOut | date: 'MMM d, y' }}</span>
-            </div>
-            <div class="amount-details">
-              <span class="detail-label">TOTAL</span>
+              <span class="table-secondary">to {{ booking.checkOut | date: 'MMM d, y' }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let booking">
+              <span
+                class="status-badge"
+                [class.is-confirmed]="booking.status.toLowerCase() === 'confirmed'"
+                [class.is-cancelled]="booking.status.toLowerCase() === 'cancelled'"
+              >
+                <span class="status-dot" aria-hidden="true"></span>
+                {{ booking.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>Total</th>
+            <td mat-cell *matCellDef="let booking">
               <strong>{{ booking.totalAmount | currency: 'USD' : 'symbol' : '1.2-2' }}</strong>
-            </div>
-          </article>
-        }
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="bookingColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: bookingColumns"></tr>
+        </table>
       </div>
     }
   </section>

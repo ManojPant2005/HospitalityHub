@@ -104,6 +104,10 @@ h1 span {
   min-height: 112px;
   padding: 17px 20px;
 }
+.stat-card {
+  --mat-card-outlined-container-shape: 15px;
+  box-shadow: 0 5px 20px #20372b08;
+}
 .stat-card strong {
   display: block;
   margin: 8px 0 1px;
@@ -269,6 +273,7 @@ h1 span {
   gap: 10px;
 }
 .room-card {
+  --mat-card-outlined-container-shape: 11px;
   display: grid;
   grid-template-columns: 42px minmax(95px, 1fr) auto auto auto;
   align-items: center;

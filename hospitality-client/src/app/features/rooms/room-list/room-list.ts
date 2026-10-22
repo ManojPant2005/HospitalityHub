@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 import { finalize } from 'rxjs';
 import { ApiService } from '../../../core/services/api';
 import { Room } from '../../../core/models/room';
@@ -18,7 +19,7 @@ import { AuthService } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-room-list',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, MatCardModule, ReactiveFormsModule, RouterLink, RouterLinkActive],
   templateUrl: './room-list.html',
   styleUrl: './room-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

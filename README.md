@@ -1,5 +1,5 @@
 # 🏨 HospitalityHub - Full Stack Learning Project
-### Angular 17 + .NET 8 Web API + SQL Server & SQLite
+### Angular 21 + .NET 10 Web API + SQL Server & SQLite
 
 > Practical, hands-on learning project to master Angular by building and consuming real .NET APIs. No theory, only implementation.
 
@@ -14,23 +14,24 @@
 
 I am from a .NET background. The goal of this repo is to:
 - Build production-ready .NET APIs with both **SQL Server** (Enterprise) and **SQLite** (Lightweight)
-- Learn Angular 17+ Standalone architecture practically by consuming those APIs
+- Learn modern standalone Angular architecture practically by consuming those APIs
 - Document the entire journey for 【entity-GitHub¦canonical_name=GitHub】 portfolio
 
-**Live Demo:** `http://localhost:4200` (Angular) consuming `https://localhost:7094/api` (.NET)
+- **Live demo:** Not deployed yet. Follow the [free deployment guide](./DEPLOYMENT.md) to deploy it.
+- **API health:** Not deployed yet.
 
 ### 🏗️ Architecture
 HospitalityHub/
-├── HospitalityHub.Api/ # .NET 8 API + SQL Server + EF Core
-├── HospitalityHub.Api.Sqlite/ # .NET 8 API + SQLite (Same Code, Different Provider)
-├── hospitality-client/ # Angular 17 Standalone Client
+├── HospitalityHub.Api/ # .NET 10 API + SQL Server + EF Core
+├── HospitalityHub.Api.Sqlite/ # .NET 10 API + SQLite (Same Code, Different Provider)
+├── hospitality-client/ # Angular 21 Standalone Client
 └── README.md
 
 
 
 **Tech Stack:**
-- **Backend:** .NET 8 Web API, Entity Framework Core, SQL Server, SQLite
-- **Frontend:** Angular 17 Standalone, TypeScript, RxJS, HttpClient, Reactive Forms
+- **Backend:** .NET 10 Web API, Entity Framework Core, SQL Server, SQLite
+- **Frontend:** Angular 21 Standalone, TypeScript, RxJS, HttpClient, Reactive Forms, Angular Material
 - **Tools:** Swagger, Angular CLI, Git
 
 ### ✨ Features Implemented
@@ -57,6 +58,7 @@ HospitalityHub/
 - [x] Global HTTP interceptor for request loading state and API error notifications
 - [x] JWT registration/login with password hashing, protected room/booking APIs, and browser token storage
 - [x] Room search by number/type and six-room client-side pagination
+- [x] Angular Material theme, Material cards, and booking table
 - [x] Route guard redirects signed-out users to the login screen
 - [ ] Booking update and cancellation (remaining Level 1 CRUD scope)
 - [ ] Lazy-loaded feature routes
@@ -65,6 +67,8 @@ HospitalityHub/
 - **Level 1 — CRUD foundations:** Substantially complete. Room create/list/delete and booking create/list are implemented. Booking update/delete are not yet implemented, so full CRUD is still a future task.
 - **Level 2 — Enterprise features:** JWT registration/login, protected APIs, a global HTTP interceptor, room search, and pagination are implemented.
 - **Level 3 — Angular signals:** Already used for room and booking state, search/pagination, loading, errors, and computed summaries.
+- **Level 3 — Angular Material:** Material 3 theming, room and summary cards, and a Material booking table are in place.
+- **Deployment:** Follow the [free deployment guide](./DEPLOYMENT.md). Render's free filesystem is temporary, so SQLite records can be lost after service restarts.
 - **Learning notebook:** [Level 1, Level 2, and Level 3 notes](./hospitality-client/LEVEL-1-AND-LEVEL-2-NOTES.ipynb).
 
 ###  Getting Started - Run Locally

@@ -18,21 +18,21 @@
   </section>
 
   <section class="stats-grid" aria-label="Room summary">
-    <article class="stat-card">
+    <mat-card appearance="outlined" class="stat-card">
       <span class="stat-label">TOTAL ROOMS</span>
       <strong>{{ rooms().length }}</strong>
       <span class="stat-caption">in your inventory</span>
-    </article>
-    <article class="stat-card">
+    </mat-card>
+    <mat-card appearance="outlined" class="stat-card">
       <span class="stat-label">AVAILABLE</span>
       <strong>{{ availableCount() }}</strong>
       <span class="stat-caption">ready for a new stay</span>
-    </article>
-    <article class="stat-card">
+    </mat-card>
+    <mat-card appearance="outlined" class="stat-card">
       <span class="stat-label">UNAVAILABLE</span>
       <strong>{{ unavailableCount() }}</strong>
       <span class="stat-caption">not available to book</span>
-    </article>
+    </mat-card>
   </section>
 
   <div class="content-grid">
@@ -195,7 +195,7 @@
         }
         <div class="room-list">
           @for (room of visibleRooms(); track room.id) {
-            <article class="room-card">
+            <mat-card appearance="outlined" class="room-card">
               <div class="room-avatar" aria-hidden="true">{{ room.roomNumber.slice(0, 1) }}</div>
               <div class="room-details">
                 <h3>Room {{ room.roomNumber }}</h3>
@@ -222,7 +222,7 @@
                   Remove
                 }
               </button>
-            </article>
+            </mat-card>
           }
         </div>
         @if (totalPages() > 1) {

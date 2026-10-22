@@ -48,22 +48,33 @@ builder.Services.AddAuthorization();
 
 // 2. Configure Entity Framework Core and SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? "Data Source=HospitalityHub.db"));
 
 // 3. Configure CORS for the Angular frontend
+var allowedOrigins = builder.Configuration["Cors:AllowedOrigins"]?
+    .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+    ?? ["http://localhost:4200", "http://localhost:4300"];
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAngular", policy =>
-	{
-		policy
-			.WithOrigins("http://localhost:4200", "http://localhost:4300")
-			.AllowAnyMethod()
-			.AllowAnyHeader();
-	});
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy
+            .WithOrigins(allowedOrigins)
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
 });
 
 // 4. Build the application
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 // 5. Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -78,6 +89,7 @@ app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 
 // 7. Weather Forecast endpoint
 var summaries = new[]
