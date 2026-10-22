@@ -17,7 +17,7 @@ I am from a .NET background. The goal of this repo is to:
 - Learn modern standalone Angular architecture practically by consuming those APIs
 - Document the entire journey for 【entity-GitHub¦canonical_name=GitHub】 portfolio
 
-- **Live demo:** Not deployed yet. Follow the [free deployment guide](./DEPLOYMENT.md) to deploy it.
+- **Live demo:** Not deployed yet. For a no-card demo attempt, see the [SQLite + Render deployment guide](./DEPLOYMENT-SQLITE.md). For SQL Server/Azure deployment, see [DEPLOYMENT.md](./DEPLOYMENT.md).
 - **API health:** Not deployed yet.
 
 ### 🏗️ Architecture
@@ -68,7 +68,7 @@ HospitalityHub/
 - **Level 2 — Enterprise features:** JWT registration/login, protected APIs, a global HTTP interceptor, room search, and pagination are implemented.
 - **Level 3 — Angular signals:** Already used for room and booking state, search/pagination, loading, errors, and computed summaries.
 - **Level 3 — Angular Material:** Material 3 theming, room and summary cards, and a Material booking table are in place.
-- **Deployment:** Follow the [free deployment guide](./DEPLOYMENT.md) to deploy the SQL Server API to Azure App Service/Azure SQL and Angular to Netlify. The separate SQLite API remains for local practice.
+- **Deployment:** The SQL Server API remains the local-development API. A separate [SQLite + Render guide](./DEPLOYMENT-SQLITE.md) is available for a public demo; the SQLite file can reset on Render Free restarts.
 - **Learning notebook:** [Level 1, Level 2, and Level 3 notes](./hospitality-client/LEVEL-1-AND-LEVEL-2-NOTES.ipynb).
 
 ###  Getting Started - Run Locally
