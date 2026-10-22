@@ -58,12 +58,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 );
 
 // 3. Configure CORS for the Angular frontend
+var allowedOrigins = builder.Configuration["Cors:AllowedOrigins"]?
+    .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+    ?? ["http://localhost:4200", "http://localhost:4300"];
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
         policy
-            .WithOrigins("http://localhost:4200", "http://localhost:4300")
+            .WithOrigins(allowedOrigins)
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
@@ -85,6 +88,7 @@ app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 
 // 7. Weather Forecast endpoint
 var summaries = new[]

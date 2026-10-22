@@ -68,7 +68,7 @@ HospitalityHub/
 - **Level 2 — Enterprise features:** JWT registration/login, protected APIs, a global HTTP interceptor, room search, and pagination are implemented.
 - **Level 3 — Angular signals:** Already used for room and booking state, search/pagination, loading, errors, and computed summaries.
 - **Level 3 — Angular Material:** Material 3 theming, room and summary cards, and a Material booking table are in place.
-- **Deployment:** Follow the [free deployment guide](./DEPLOYMENT.md). Render's free filesystem is temporary, so SQLite records can be lost after service restarts.
+- **Deployment:** Follow the [free deployment guide](./DEPLOYMENT.md) to deploy the SQL Server API to Azure App Service/Azure SQL and Angular to Netlify. The separate SQLite API remains for local practice.
 - **Learning notebook:** [Level 1, Level 2, and Level 3 notes](./hospitality-client/LEVEL-1-AND-LEVEL-2-NOTES.ipynb).
 
 ###  Getting Started - Run Locally

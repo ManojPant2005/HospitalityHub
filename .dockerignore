@@ -1,9 +1,0 @@
-.git
-.vs
-.vscode
-**/bin
-**/obj
-**/node_modules
-**/dist
-**/.angular
-**/TestResults
