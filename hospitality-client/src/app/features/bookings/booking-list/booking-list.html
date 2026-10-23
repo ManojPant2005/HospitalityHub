@@ -1,16 +1,4 @@
-<main class="page-shell">
-  <header class="topbar">
-    <a class="brand" routerLink="/" aria-label="Hospitality Hub home">
-      <span class="brand-mark" aria-hidden="true">H</span>
-      <span>Hospitality<span class="brand-light">Hub</span></span>
-    </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Rooms</a>
-      <a routerLink="/bookings" routerLinkActive="active">Bookings</a>
-      <a class="nav-action" routerLink="/book">New booking</a>
-      <button class="logout-button" type="button" (click)="logout()">Sign out</button>
-    </nav>
-  </header>
+<app-workspace-shell activePage="bookings" (signOut)="logout()">
 
   <section class="page-intro" aria-labelledby="page-title">
     <p class="eyebrow">EVERY STAY, IN ONE PLACE</p>
@@ -19,17 +7,17 @@
   </section>
 
   <section class="stats-grid" aria-label="Booking summary">
-    <mat-card appearance="outlined" class="stat-card">
+    <mat-card appearance="outlined" class="stat-card stat-card-total">
       <span class="stat-label">TOTAL BOOKINGS</span>
       <strong>{{ bookings().length }}</strong>
       <span class="stat-caption">reservations on record</span>
     </mat-card>
-    <mat-card appearance="outlined" class="stat-card">
+    <mat-card appearance="outlined" class="stat-card stat-card-confirmed">
       <span class="stat-label">CONFIRMED</span>
       <strong>{{ confirmedCount() }}</strong>
       <span class="stat-caption">ready for your guests</span>
     </mat-card>
-    <mat-card appearance="outlined" class="stat-card">
+    <mat-card appearance="outlined" class="stat-card stat-card-revenue">
       <span class="stat-label">BOOKED REVENUE</span>
       <strong>{{ totalRevenue() | currency: 'USD' : 'symbol' : '1.0-0' }}</strong>
       <span class="stat-caption">excluding cancelled stays</span>
@@ -128,4 +116,4 @@
       </div>
     }
   </section>
-</main>
+</app-workspace-shell>

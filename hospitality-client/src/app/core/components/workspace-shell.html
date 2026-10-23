@@ -1,0 +1,96 @@
+<div class="workspace-layout">
+  <aside class="workspace-sidebar" aria-label="Workspace navigation">
+    <a class="workspace-brand" routerLink="/" aria-label="HospitalityHub home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M4 20V8.5L12 4l8 4.5V20M8 20v-6h8v6M9 9h.01M15 9h.01" />
+        </svg>
+      </span>
+      <span>Hospitality<span class="brand-light">Hub</span></span>
+    </a>
+
+    <div class="account-card">
+      <span class="account-avatar" aria-hidden="true">{{ accountInitials }}</span>
+      <span class="account-copy">
+        <strong>{{ accountEmail() || 'Your account' }}</strong>
+        <span>Property workspace</span>
+      </span>
+    </div>
+
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="workspace-nav" aria-label="Main navigation">
+      <a
+        class="side-link"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="4" y="4" width="6" height="6" rx="1" />
+          <rect x="14" y="4" width="6" height="6" rx="1" />
+          <rect x="4" y="14" width="6" height="6" rx="1" />
+          <rect x="14" y="14" width="6" height="6" rx="1" />
+        </svg>
+        <span>Overview</span>
+      </a>
+      <a
+        class="side-link"
+        routerLink="/bookings"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="4" y="5" width="16" height="15" rx="2" />
+          <path d="M8 3v4M16 3v4M4 10h16M8 14h3M8 17h6" />
+        </svg>
+        <span>Bookings</span>
+      </a>
+      <a
+        class="side-link side-link-action"
+        routerLink="/book"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        <span>New booking</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-tip">
+        <span aria-hidden="true">✦</span>
+        <div>
+          <strong>Thoughtful hosting</strong>
+          <p>Little details make every stay.</p>
+        </div>
+      </div>
+      <button class="sign-out" type="button" (click)="signOut.emit()">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10 17l5-5-5-5M15 12H3M21 4v16" />
+        </svg>
+        <span>Sign out</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="workspace-main">
+    <header class="workspace-topbar">
+      <div class="breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/">HospitalityHub</a>
+        <span aria-hidden="true">›</span>
+        <strong>{{ pageLabel }}</strong>
+      </div>
+      <div class="topbar-account">
+        <span class="account-role">SIGNED IN</span>
+        <span class="topbar-avatar" aria-label="Account initials">{{ accountInitials }}</span>
+      </div>
+    </header>
+
+    <main class="workspace-content">
+      <ng-content></ng-content>
+    </main>
+  </div>
+</div>

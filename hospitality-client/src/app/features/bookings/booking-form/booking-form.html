@@ -1,16 +1,4 @@
-<main class="page-shell">
-  <header class="topbar">
-    <a class="brand" routerLink="/" aria-label="Hospitality Hub home">
-      <span class="brand-mark" aria-hidden="true">H</span>
-      <span>Hospitality<span class="brand-light">Hub</span></span>
-    </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Rooms</a>
-      <a routerLink="/bookings" routerLinkActive="active">Bookings</a>
-      <a class="nav-action" routerLink="/book">New booking</a>
-      <button class="logout-button" type="button" (click)="logout()">Sign out</button>
-    </nav>
-  </header>
+<app-workspace-shell activePage="booking" (signOut)="logout()">
 
   <section class="page-intro" aria-labelledby="page-title">
     <p class="eyebrow">A WARM WELCOME STARTS HERE</p>
@@ -190,4 +178,4 @@
       <p class="summary-footnote">Final total is calculated by the booking service when you confirm.</p>
     </aside>
   </div>
-</main>
+</app-workspace-shell>

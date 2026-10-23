@@ -2,63 +2,19 @@
   display: block;
   min-height: 100vh;
   background:
-    radial-gradient(ellipse at 82% 18%, #edf1e8 0, transparent 38%),
-    #f5f6f3;
-}
-
-.page-shell {
-  width: min(100% - 48px, 1080px);
-  margin: 0 auto;
-  padding-bottom: 64px;
-}
-
-.topbar {
-  min-height: 78px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  border-bottom: 1px solid #e5e8e2;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: #18352e;
-  font-size: 16px;
-  font-weight: 750;
-  text-decoration: none;
-}
-
-.brand-mark {
-  display: grid;
-  width: 36px;
-  height: 36px;
-  place-items: center;
-  border-radius: 12px;
-  background: #1e5144;
-  color: white;
-  font-size: 20px;
-}
-
-.brand-light {
-  font-weight: 450;
-}
-
-.primary-link:hover {
-  background: #163e34;
+    radial-gradient(ellipse at 82% 18%, #eeebfb 0, transparent 38%),
+    #f7f5ef;
 }
 
 .page-intro {
-  padding: 48px 0 25px;
+  padding: 0 0 28px;
 }
 
 .eyebrow,
 .stat-label,
 .detail-label {
   margin: 0;
-  color: #74817a;
+  color: #77758c;
   font-size: 10px;
   font-weight: 750;
   letter-spacing: 1.3px;
@@ -73,57 +29,69 @@ p {
 
 h1 {
   margin: 9px 0 8px;
-  color: #193c32;
+  color: #292742;
   font-size: clamp(34px, 5vw, 47px);
   font-weight: 500;
   letter-spacing: -1.5px;
+  line-height: 1.08;
 }
 
 h1 span {
-  color: #839c8f;
-  font-style: italic;
+  color: #d59a20;
 }
 
 .intro-copy {
   margin-bottom: 0;
-  color: #74817a;
+  color: #77758c;
   font-size: 14px;
+  line-height: 1.55;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 30px;
 }
 
 .stat-card,
 .panel {
-  border: 1px solid #e7e9e4;
+  border: 1px solid #ebe7dd;
   border-radius: 15px;
-  background: #fff;
-  box-shadow: 0 5px 20px #20372b08;
+  background: #fffdfa;
+  box-shadow: 0 8px 24px rgb(41 39 66 / 4%);
 }
 
 .stat-card {
   min-height: 110px;
   padding: 17px 20px;
+  --mat-card-outlined-container-shape: 15px;
 }
 .stat-card {
-  --mat-card-outlined-container-shape: 15px;
   box-shadow: 0 5px 20px #20372b08;
 }
 
 .stat-card strong {
   display: block;
   margin: 8px 0 1px;
-  color: #1d4338;
+  color: #292742;
   font-size: 24px;
 }
 
 .stat-caption {
-  color: #87918b;
-  font-size: 12px;
+  color: #77758c;
+}
+
+.stat-card-total {
+  background: #eeebfb;
+}
+
+.stat-card-confirmed {
+  background: #e4f4eb;
+}
+
+.stat-card-revenue {
+  background: #fff0e6;
 }
 
 .panel {
@@ -144,7 +112,7 @@ h1 span {
 
 .panel-heading h2 {
   margin: 0;
-  color: #1c3c33;
+  color: #292742;
   font-size: 20px;
   letter-spacing: -0.4px;
 }
@@ -153,10 +121,10 @@ h1 span {
 .secondary-button {
   min-height: 38px;
   padding: 0 13px;
-  border: 1px solid #d8e0da;
+  border: 1px solid #e4e0d8;
   border-radius: 8px;
   background: #fff;
-  color: #1e5144;
+  color: #292742;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
@@ -164,7 +132,7 @@ h1 span {
 
 .refresh-button:hover:not(:disabled),
 .secondary-button:hover {
-  background: #f1f5f2;
+  background: #f1eff8;
 }
 
 .refresh-button:disabled {
@@ -174,7 +142,7 @@ h1 span {
 
 .booking-table-container {
   overflow-x: auto;
-  border: 1px solid #e7e9e4;
+  border: 1px solid #ebe7dd;
   border-radius: 12px;
 }
 
@@ -185,31 +153,31 @@ h1 span {
 }
 
 .booking-table th {
-  color: #64746b;
+  color: #77758c;
   font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
 }
 
 .booking-table td {
-  color: #30443b;
+  color: #4f4d68;
   font-size: 12px;
 }
 
 .booking-table tr.mat-mdc-row:hover {
-  background: #f7f9f7;
+  background: #faf9f6;
 }
 
 .guest-email {
   display: grid;
   gap: 5px;
   min-width: 0;
-  color: #527666;
+  color: #625d8d;
   text-decoration: none;
 }
 
 .guest-email strong {
-  color: #263d34;
+  color: #292742;
   font-size: 12px;
 }
 
@@ -217,7 +185,7 @@ h1 span {
 .room-type,
 .table-secondary {
   display: block;
-  color: #7c8982;
+  color: #858298;
   font-size: 11px;
 }
 
@@ -273,8 +241,8 @@ h1 span {
 .spinner {
   width: 17px;
   height: 17px;
-  border: 2px solid #dce6df;
-  border-top-color: #35715d;
+  border: 2px solid #e5e2ef;
+  border-top-color: #6c668f;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -286,14 +254,14 @@ h1 span {
   margin: 0 auto 13px;
   place-items: center;
   border-radius: 50%;
-  background: #eef3ef;
-  color: #47715f;
+  background: #eeebfb;
+  color: #514b7c;
   font-size: 20px;
 }
 
 .empty-state h3 {
   margin-bottom: 7px;
-  color: #34483f;
+  color: #292742;
   font-size: 15px;
 }
 
@@ -315,11 +283,15 @@ h1 span {
   justify-content: center;
   padding: 0 14px;
   border-radius: 8px;
-  background: #1e5144;
+  background: #292742;
   color: white;
   font-size: 12px;
   font-weight: 700;
   text-decoration: none;
+}
+
+.primary-link:hover {
+  background: #3a3759;
 }
 
 @keyframes spin {
@@ -329,26 +301,8 @@ h1 span {
 }
 
 @media (max-width: 560px) {
-  .page-shell {
-    width: min(100% - 32px, 480px);
-  }
-
-  .topbar {
-    min-height: 68px;
-  }
-
-  .brand {
-    gap: 8px;
-    font-size: 14px;
-  }
-
-  .brand-mark {
-    width: 32px;
-    height: 32px;
-  }
-
   .page-intro {
-    padding: 34px 0 22px;
+    padding-bottom: 22px;
   }
 
   .stats-grid {

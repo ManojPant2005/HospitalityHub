@@ -10,10 +10,12 @@ describe('AuthService', () => {
   let httpTesting: HttpTestingController;
   let storedToken: string | null;
   let storedExpiry: string | null;
+  let storedEmail: string | null;
 
   beforeEach(() => {
     storedToken = null;
     storedExpiry = null;
+    storedEmail = null;
 
     TestBed.configureTestingModule({
       providers: [
@@ -23,9 +25,10 @@ describe('AuthService', () => {
         {
           provide: AuthTokenStorage,
           useValue: {
-            store: (token: string, expiry: string) => {
+            store: (token: string, expiry: string, email: string) => {
               storedToken = token;
               storedExpiry = expiry;
+              storedEmail = email;
             },
           },
         },
@@ -64,5 +67,6 @@ describe('AuthService', () => {
 
     expect(storedToken).toBe('signed-access-token');
     expect(storedExpiry).toBe(expiresAtUtc);
+    expect(storedEmail).toBe('guest@example.com');
   });
 });

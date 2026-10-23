@@ -18,7 +18,11 @@ export class AuthService {
   login(request: LoginRequest): Observable<LoginResponse> {
     return this.http
       .post<LoginResponse>(`${this.apiBaseUrl}/auth/login`, request)
-      .pipe(tap((response) => this.tokenStorage.store(response.accessToken, response.expiresAtUtc)));
+      .pipe(
+        tap((response) =>
+          this.tokenStorage.store(response.accessToken, response.expiresAtUtc, response.user.email),
+        ),
+      );
   }
 
   isAuthenticated(): boolean {

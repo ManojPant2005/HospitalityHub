@@ -1,0 +1,401 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  color: #292742;
+}
+
+.workspace-layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 236px minmax(0, 1fr);
+  background: #f7f5ef;
+}
+
+.workspace-sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  padding: 24px 15px 18px;
+  background: #292742;
+  color: #fff;
+}
+
+.workspace-brand {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 10px;
+  margin: 0 8px 30px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 11px;
+  background: #f6b940;
+  color: #292742;
+}
+
+.brand-mark svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.brand-light {
+  font-weight: 450;
+}
+
+.account-card {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+  padding: 11px 10px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 11px;
+  background: rgb(255 255 255 / 7%);
+}
+
+.account-avatar,
+.topbar-avatar {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #f6b940;
+  color: #292742;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.account-avatar {
+  width: 32px;
+  height: 32px;
+}
+
+.account-copy {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.account-copy strong {
+  overflow: hidden;
+  color: #f8f7fb;
+  font-size: 11px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-copy > span {
+  color: #aaa8bd;
+  font-size: 10px;
+}
+
+.nav-label {
+  margin: 0 8px 10px;
+  color: #88869e;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 1.35px;
+}
+
+.workspace-nav {
+  display: grid;
+  gap: 5px;
+}
+
+.side-link {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 11px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: #bdbbcc;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.side-link svg,
+.sign-out svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.side-link:hover:not(.active) {
+  background: rgb(255 255 255 / 7%);
+  color: #fff;
+}
+
+.side-link.active {
+  background: #f6b940;
+  color: #292742;
+}
+
+.side-link-action {
+  margin-top: 8px;
+  border: 1px solid rgb(255 255 255 / 12%);
+}
+
+.sidebar-footer {
+  display: grid;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.sidebar-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 10px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 6%);
+}
+
+.sidebar-tip > span {
+  color: #f6b940;
+  font-size: 16px;
+}
+
+.sidebar-tip strong {
+  display: block;
+  color: #f2f0f8;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.sidebar-tip p {
+  margin: 4px 0 0;
+  color: #aaa8bd;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.sign-out {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #bdbbcc;
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sign-out:hover {
+  background: rgb(255 255 255 / 7%);
+  color: #fff;
+}
+
+.workspace-main {
+  min-width: 0;
+}
+
+.workspace-topbar {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 clamp(24px, 4vw, 58px);
+  border-bottom: 1px solid #ece8df;
+  background: rgb(255 253 249 / 94%);
+  backdrop-filter: blur(12px);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #858298;
+  font-size: 11px;
+}
+
+.breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #292742;
+}
+
+.breadcrumb > span {
+  color: #aaa7b5;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.breadcrumb strong {
+  color: #292742;
+  font-weight: 700;
+}
+
+.topbar-account {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.account-role {
+  padding: 6px 9px;
+  border: 1px solid #ece7dd;
+  border-radius: 20px;
+  color: #77758c;
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: 0.65px;
+}
+
+.topbar-avatar {
+  width: 31px;
+  height: 31px;
+}
+
+.workspace-content {
+  width: min(100%, 1240px);
+  margin: 0 auto;
+  padding: 44px clamp(24px, 5vw, 72px) 60px;
+}
+
+@media (max-width: 900px) {
+  .workspace-layout {
+    grid-template-columns: 210px minmax(0, 1fr);
+  }
+
+  .workspace-content {
+    padding-top: 36px;
+  }
+}
+
+@media (max-width: 700px) {
+  .workspace-layout {
+    display: block;
+  }
+
+  .workspace-sidebar {
+    position: static;
+    height: auto;
+    padding: 12px 16px 10px;
+  }
+
+  .workspace-brand {
+    margin: 0;
+  }
+
+  .account-card,
+  .nav-label,
+  .sidebar-tip {
+    display: none;
+  }
+
+  .workspace-nav {
+    display: flex;
+    gap: 5px;
+    margin-top: 11px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .workspace-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .side-link {
+    min-height: 36px;
+    flex: 0 0 auto;
+    gap: 7px;
+    padding: 0 10px;
+    font-size: 10px;
+  }
+
+  .side-link svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .side-link-action {
+    margin-top: 0;
+  }
+
+  .sidebar-footer {
+    position: absolute;
+    top: 13px;
+    right: 16px;
+    display: block;
+    margin: 0;
+  }
+
+  .sign-out {
+    min-height: 34px;
+    padding: 0 8px;
+    font-size: 10px;
+  }
+
+  .sign-out svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .workspace-topbar {
+    position: static;
+    min-height: 50px;
+    padding: 0 20px;
+  }
+
+  .workspace-content {
+    padding: 28px 20px 42px;
+  }
+}
+
+@media (max-width: 380px) {
+  .account-role {
+    display: none;
+  }
+
+  .workspace-content {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -24,46 +24,8 @@ textarea {
   font: inherit;
 }
 
-.main-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.main-nav a {
-  padding: 9px 12px;
-  border-radius: 8px;
-  color: #617169;
-  font-size: 13px;
-  font-weight: 650;
-  text-decoration: none;
-}
-.main-nav a:hover,
-.main-nav a.active:not(.nav-action) {
-  background: #f0eef8;
-  color: #292742;
-}
-.main-nav .nav-action {
-  margin-left: 4px;
-  background: #292742;
-  color: #fff;
-}
-.main-nav .nav-action:hover,
-.main-nav .logout-button:hover,
 .primary-link:hover {
   background: #3a3759;
-}
-.logout-button {
-  padding: 8px 10px;
-  border: 1px solid #d8e0da;
-  border-radius: 8px;
-  background: #fff;
-  color: #617169;
-  font-size: 12px;
-  font-weight: 650;
-  cursor: pointer;
-}
-.logout-button:hover {
-  color: #292742;
 }
 
 .room-toolbar {
@@ -147,16 +109,6 @@ textarea {
 }
 
 @media (max-width: 560px) {
-  .main-nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1px;
-  }
-  .main-nav a,
-  .logout-button {
-    padding: 8px 7px;
-    font-size: 11px;
-  }
   .room-toolbar {
     align-items: stretch;
     flex-direction: column;
@@ -166,12 +118,6 @@ textarea {
   }
   .search-caption {
     align-self: flex-end;
-  }
-  .topbar {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 0;
   }
 }
 

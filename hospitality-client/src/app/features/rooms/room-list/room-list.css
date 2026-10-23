@@ -1,59 +1,25 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: #f5f6f3;
+  background: #f7f5ef;
 }
 
-.page-shell {
-  width: min(1120px, calc(100% - 48px));
-  margin: 0 auto;
-  padding: 0 0 64px;
-}
-
-.topbar {
-  min-height: 78px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #e5e8e2;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: #18352e;
-  font-size: 16px;
-  font-weight: 750;
-  text-decoration: none;
-}
-
-.brand-mark {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border-radius: 11px;
-  background: #1e5144;
-  color: white;
-  font-size: 20px;
-}
-
-.brand-light {
-  font-weight: 450;
-}
 .workspace-label,
 .eyebrow,
 .stat-label,
 .room-count {
-  color: #74817a;
+  color: #77758c;
   font-size: 10px;
   font-weight: 750;
   letter-spacing: 1.3px;
 }
 
 .page-intro {
-  padding: 46px 0 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 4px 0 28px;
 }
 .page-intro .eyebrow,
 .panel-heading .eyebrow {
@@ -67,19 +33,20 @@ p {
 }
 h1 {
   margin-bottom: 8px;
-  color: #193c32;
-  font-size: clamp(34px, 5vw, 48px);
-  font-weight: 500;
-  letter-spacing: -1.6px;
+  color: #292742;
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 650;
+  letter-spacing: -1.9px;
+  line-height: 1.05;
 }
 h1 span {
-  color: #839c8f;
-  font-style: italic;
+  color: #d59a20;
 }
 .intro-copy,
 .panel-description {
-  color: #74817a;
+  color: #77758c;
   font-size: 14px;
+  line-height: 1.55;
 }
 .intro-copy {
   margin-bottom: 0;
@@ -88,46 +55,69 @@ h1 span {
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 22px;
+  gap: 12px;
+  margin-bottom: 36px;
 }
 
 .stat-card,
 .panel {
-  border: 1px solid #e7e9e4;
+  border: 1px solid #ebe7dd;
   border-radius: 15px;
-  background: #fff;
-  box-shadow: 0 5px 20px #20372b08;
+  background: #fffdfa;
+  box-shadow: 0 8px 24px rgb(41 39 66 / 4%);
 }
 
 .stat-card {
-  min-height: 112px;
-  padding: 17px 20px;
-}
-.stat-card {
+  min-height: 122px;
+  padding: 19px 20px;
   --mat-card-outlined-container-shape: 15px;
-  box-shadow: 0 5px 20px #20372b08;
+  box-shadow: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgb(41 39 66 / 8%);
+}
+.stat-card-total {
+  border-color: #e8e4fa;
+  background: #eeebfb;
+}
+.stat-card-available {
+  border-color: #d8eee3;
+  background: #e4f4eb;
+}
+.stat-card-unavailable {
+  border-color: #f6e0d3;
+  background: #fff0e6;
 }
 .stat-card strong {
   display: block;
   margin: 8px 0 1px;
-  color: #1d4338;
-  font-size: 25px;
+  color: #292742;
+  font-size: 29px;
 }
 .stat-caption {
-  color: #87918b;
+  color: #77758c;
   font-size: 12px;
 }
 
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(270px, 0.72fr) minmax(0, 1.6fr);
+  grid-template-columns: minmax(0, 1.6fr) minmax(270px, 0.78fr);
   align-items: start;
-  gap: 18px;
+  gap: 16px;
 }
 
 .panel {
-  padding: 23px;
+  padding: 22px;
+}
+.inventory-panel {
+  grid-column: 1;
+  grid-row: 1;
+}
+.add-panel {
+  grid-column: 2;
+  grid-row: 1;
 }
 .panel-heading {
   display: flex;
@@ -136,7 +126,7 @@ h1 span {
 }
 .panel-heading h2 {
   margin: 0;
-  color: #1c3c33;
+  color: #292742;
   font-size: 20px;
   letter-spacing: -0.4px;
 }
@@ -155,7 +145,7 @@ h1 span {
 .field label {
   display: block;
   margin-bottom: 7px;
-  color: #30443b;
+  color: #4f4d68;
   font-size: 12px;
   font-weight: 700;
 }
@@ -170,8 +160,8 @@ h1 span {
   font-size: 13px;
 }
 .field input:focus {
-  border-color: #588575;
-  outline: 3px solid #d9e8e1;
+  border-color: #7771a2;
+  outline: 3px solid #efedf7;
 }
 .field input[aria-invalid='true'] {
   border-color: #b5473b;
@@ -213,7 +203,7 @@ h1 span {
 .availability-toggle input {
   width: 16px;
   height: 16px;
-  accent-color: #27614f;
+  accent-color: #292742;
 }
 .toggle-copy strong,
 .toggle-copy span {
@@ -240,11 +230,11 @@ h1 span {
 }
 .primary-button {
   width: 100%;
-  background: #1e5144;
+  background: #292742;
   color: white;
 }
 .primary-button:hover:not(:disabled) {
-  background: #163e34;
+  background: #3a3759;
 }
 .primary-button:disabled {
   cursor: wait;
@@ -254,7 +244,7 @@ h1 span {
   padding: 0 15px;
   border: 1px solid #d8e0da;
   background: white;
-  color: #1e5144;
+  color: #292742;
 }
 
 .inventory-heading {
@@ -264,8 +254,8 @@ h1 span {
 .room-count {
   padding: 7px 9px;
   border-radius: 20px;
-  background: #eef3ef;
-  color: #547265;
+  background: #eeebfb;
+  color: #514b7c;
   letter-spacing: 0.8px;
 }
 .room-list {
@@ -280,8 +270,15 @@ h1 span {
   gap: 13px;
   min-height: 78px;
   padding: 13px;
-  border: 1px solid #edf0eb;
+  border: 1px solid #eeeae1;
   border-radius: 11px;
+  background: #fffdfa;
+  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+.room-card:hover {
+  transform: translateY(-1px);
+  border-color: #ded9cb;
+  box-shadow: 0 8px 18px rgb(41 39 66 / 5%);
 }
 .room-avatar {
   display: grid;
@@ -289,13 +286,13 @@ h1 span {
   height: 40px;
   place-items: center;
   border-radius: 10px;
-  background: #edf3ef;
-  color: #386352;
+  background: #eeebfb;
+  color: #514b7c;
   font-size: 18px;
 }
 .room-details h3 {
   margin: 0 0 4px;
-  color: #263d34;
+  color: #292742;
   font-size: 13px;
 }
 .room-details p,
@@ -310,7 +307,7 @@ h1 span {
 .room-price strong {
   display: block;
   margin-bottom: 3px;
-  color: #273e35;
+  color: #292742;
   font-size: 12px;
 }
 .availability-badge {
@@ -363,8 +360,8 @@ h1 span {
 .spinner {
   width: 17px;
   height: 17px;
-  border: 2px solid #dce6df;
-  border-top-color: #35715d;
+  border: 2px solid #e5e2ef;
+  border-top-color: #6c668f;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -375,8 +372,8 @@ h1 span {
   margin: 0 auto 13px;
   place-items: center;
   border-radius: 50%;
-  background: #eef3ef;
-  color: #47715f;
+  background: #eeebfb;
+  color: #514b7c;
   font-size: 20px;
 }
 .empty-state h3 {
@@ -422,32 +419,36 @@ h1 span {
   .content-grid {
     grid-template-columns: 1fr;
   }
-  .add-panel {
-    order: 1;
-  }
   .inventory-panel {
-    order: 2;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .add-panel {
+    grid-column: 1;
+    grid-row: 2;
+    order: 1;
   }
 }
 
 @media (max-width: 560px) {
-  .page-shell {
-    width: min(100% - 32px, 480px);
-  }
-  .topbar {
-    min-height: 66px;
-  }
   .workspace-label {
     font-size: 9px;
   }
   .page-intro {
-    padding-top: 34px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 0 22px;
+  }
+  .hero-action {
+    align-self: stretch;
+    justify-content: center;
   }
   .stats-grid {
     gap: 8px;
   }
   .stat-card {
-    min-height: 99px;
+    min-height: 104px;
     padding: 13px 10px;
   }
   .stat-label {
@@ -485,10 +486,40 @@ h1 span {
 }
 
 @media (max-width: 400px) {
-  .topbar {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 0;
+  .room-card {
+    grid-template-columns: 34px minmax(60px, 1fr) auto;
+    gap: 7px;
+    padding: 10px;
   }
+
+  .room-price strong {
+    font-size: 11px;
+  }
+}
+
+.hero-action {
+  display: inline-flex;
+  min-height: 40px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 15px;
+  border-radius: 8px;
+  background: #292742;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.hero-action:hover {
+  transform: translateY(-1px);
+  background: #3a3759;
+}
+
+.hero-action span:last-child {
+  color: #f6b940;
+  font-size: 16px;
 }

@@ -1,16 +1,17 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { Booking } from '../../../core/models/booking';
 import { ApiService } from '../../../core/services/api';
 import { AuthService } from '../../../core/services/auth';
+import { WorkspaceShellComponent } from '../../../core/components/workspace-shell';
 
 @Component({
   selector: 'app-booking-list',
-  imports: [CurrencyPipe, DatePipe, MatCardModule, MatTableModule, RouterLink, RouterLinkActive],
+  imports: [CurrencyPipe, DatePipe, MatCardModule, MatTableModule, RouterLink, WorkspaceShellComponent],
   templateUrl: './booking-list.html',
   styleUrl: './booking-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

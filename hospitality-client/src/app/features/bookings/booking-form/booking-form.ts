@@ -3,10 +3,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../core/services/api';
 import { Room } from '../../../core/models/room';
 import { AuthService } from '../../../core/services/auth';
+import { WorkspaceShellComponent } from '../../../core/components/workspace-shell';
 
 function bookingDateValidator(control: AbstractControl): ValidationErrors | null {
   const checkIn = control.get('checkIn')?.value;
@@ -42,7 +43,7 @@ function nightsBetween(checkIn: string, checkOut: string): number {
 
 @Component({
   selector: 'app-booking-form',
-  imports: [CurrencyPipe, ReactiveFormsModule, RouterLink, RouterLinkActive],
+  imports: [CurrencyPipe, ReactiveFormsModule, RouterLink, WorkspaceShellComponent],
   templateUrl: './booking-form.html',
   styleUrl: './booking-form.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

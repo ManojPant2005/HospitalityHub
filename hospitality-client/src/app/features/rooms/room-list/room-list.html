@@ -1,34 +1,28 @@
-<main class="page-shell">
-  <header class="topbar">
-    <a class="brand" href="/" aria-label="Hospitality Hub home">
-      <span class="brand-mark" aria-hidden="true">H</span>
-      <span>Hospitality<span class="brand-light">Hub</span></span>
-    </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Rooms</a>
-      <a routerLink="/bookings" routerLinkActive="active">Bookings</a>
-      <a class="nav-action" routerLink="/book">New booking</a>
-      <button class="logout-button" type="button" (click)="logout()">Sign out</button>
-    </nav>
-  </header>
+<app-workspace-shell activePage="rooms" (signOut)="logout()">
   <section class="page-intro" aria-labelledby="page-title">
-    <p class="eyebrow">YOUR PROPERTY AT A GLANCE</p>
-    <h1 id="page-title">Room <span>inventory</span></h1>
-    <p class="intro-copy">Manage your spaces and keep every stay running smoothly.</p>
+    <div>
+      <p class="eyebrow">YOUR PROPERTY AT A GLANCE</p>
+      <h1 id="page-title">Room <span>inventory</span></h1>
+      <p class="intro-copy">Manage your spaces and keep every stay running smoothly.</p>
+    </div>
+    <a class="hero-action" routerLink="/book">
+      <span>New booking</span>
+      <span aria-hidden="true">→</span>
+    </a>
   </section>
 
   <section class="stats-grid" aria-label="Room summary">
-    <mat-card appearance="outlined" class="stat-card">
+    <mat-card appearance="outlined" class="stat-card stat-card-total">
       <span class="stat-label">TOTAL ROOMS</span>
       <strong>{{ rooms().length }}</strong>
       <span class="stat-caption">in your inventory</span>
     </mat-card>
-    <mat-card appearance="outlined" class="stat-card">
+    <mat-card appearance="outlined" class="stat-card stat-card-available">
       <span class="stat-label">AVAILABLE</span>
       <strong>{{ availableCount() }}</strong>
       <span class="stat-caption">ready for a new stay</span>
     </mat-card>
-    <mat-card appearance="outlined" class="stat-card">
+    <mat-card appearance="outlined" class="stat-card stat-card-unavailable">
       <span class="stat-label">UNAVAILABLE</span>
       <strong>{{ unavailableCount() }}</strong>
       <span class="stat-caption">not available to book</span>
@@ -262,4 +256,4 @@
       }
     </section>
   </div>
-</main>
+</app-workspace-shell>
