@@ -177,13 +177,13 @@
 
 .auth-switch {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 5px;
+  margin-top: clamp(28px, 4vh, 44px);
   margin-bottom: clamp(60px, 10vh, 112px);
   color: #77758c;
   font-size: 12px;
 }
-
 .auth-switch a,
 .auth-footer a,
 .form-message a {
